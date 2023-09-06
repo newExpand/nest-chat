@@ -1,5 +1,6 @@
 const socket = io('http://localhost:3000/chat');
 const roomSocket = io('http://localhost:3000/room');
+let currentRoom = '';
 const nickname = prompt('닉네임을 입력해 주세요');
 
 socket.on('connect', () => {
@@ -21,6 +22,10 @@ function createRoom() {
   roomSocket.emit('createRoom', { room, nickname });
 }
 
+socket.on('notice', (data) => {
+  $('#notice').append(`<div>${data.message}</div>`);
+});
+
 roomSocket.on('rooms', (data) => {
   console.log(data);
   $('#rooms').empty();
@@ -30,3 +35,8 @@ roomSocket.on('rooms', (data) => {
     );
   });
 });
+
+function joinRoom(room) {
+  roomSocket.emit('joinRoom', { room, nickname, toLeaveRoom: currentRoom });
+  currentRoom = room;
+}
