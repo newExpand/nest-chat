@@ -9,10 +9,17 @@
 
 <body>
     <h2>간단한 Nest Chat</h2>
+
+    <div>
+        <h2>채팅방 목록</h2>
+        <ul id="rooms"></ul>
+    </div>
+
     <div id="chat"></div>
 
     <input type="text" id="message" placeholder="메세지를 입력해주세요.">
     <button onclick="sendMessage()">전송</button>
+    <button onclick="createRoom()">방 만들기</button>
 
     <script src="https://code.jquery.com/jquery-3.6.1.slim.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
